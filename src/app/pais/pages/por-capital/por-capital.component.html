@@ -1,0 +1,28 @@
+<div class="animate__animated animate__fadeIn">
+    <h2>Buscar Por Capital</h2>
+    <hr/>
+    <div class="row">
+        <div class="col">
+            <app-pais-input (onEnter)="buscar($event)" (onDebounce)="sugerencias($event)" placeHolder="Buscar por Capital..."></app-pais-input>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action" *ngFor="let paisSugerido of paisesSugeridos">
+            <a class="nav-link" [routerLink]="['/pais',paisSugerido.cca2]">{{paisSugerido.name.common}}</a>
+        </li>
+        <li *ngIf="mostrarSugeridos" class="list-group-item list-group-item-action">
+            <a class="nav-link" (click)="buscar(termino)">Buscar: "{{termino}}"</a>
+        </li>
+    </ul>
+
+    <hr/>
+</div>
+<div *ngIf="isError" class="alert alert-danger">
+    no se encontro nada con el termino {{termino}}
+</div>
+
+<div *ngIf="paises.length > 0" class="row">
+    <div class="col">
+        <app-pais-table [paises]="paises"></app-pais-table>
+    </div>
+</div>
